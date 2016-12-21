@@ -27,7 +27,7 @@ class FlaskTestCase(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get('/_add_numbers',content_type='application/json')
         self.assertEqual(response.status_code,200)
-        #check the result send is 0
+        #this is just to see how conflicts occour
         self.assertEqual(json.loads(response.data),{"result":0})
 
     # This test will purposely fail
