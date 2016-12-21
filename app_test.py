@@ -23,6 +23,13 @@ class FlaskTestCase(unittest.TestCase):
         # Check that the result sent is 8: 2+6
         self.assertEqual(json.loads(response.data), {"result": 8})
 
+    def test_sum_with_none_values(self):
+        tester = app.test_client(self)
+        response = tester.get('/_add_numbers',content_type='application/json')
+        self.assertEqual(response.status_code,200)
+        #check the result send is 0
+        self.assertEqual(json.loads(response.data),{"result":0})
+
     # This test will purposely fail
     # We are checking that 2+6 is 10
     def test_sum_fail(self):
@@ -30,6 +37,7 @@ class FlaskTestCase(unittest.TestCase):
         response = tester.get('/_add_numbers?a=-2&b=-6', content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.data), {"result": -8})
+
 
 if __name__ == '__main__':
     unittest.main()
